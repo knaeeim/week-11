@@ -33,43 +33,39 @@ int main()
     int t; cin>>t; 
 
     while(t--){
-        int n; 
-        cin>>n; 
+        int h, k, d; 
+        cin>>h>>k>>d; 
 
-        vi v(n);
+        vi v(h);
+        
+        for(int i = 0; i < h; i++){
+            cin>>v[i];
+        }
 
-        for(int i = 0; i < n; i++) cin>>v[i]; 
-
-        string answer = ""; 
-
-        vi calcu; 
-
-        if(v[0] != v[1]){
-            for(int i = 0; i < n - 1; i++){
-                answer +='B'; 
-                calcu.pub(v[i]);
+        int count = 0; 
+        int left = 0, right = 0;
+        int ans = INT_MAX;
+        map<int, int> mp;
+        
+        while(right <= h){
+            mp[v[right]]++;
+            count++;
+            if(count == d){
+                ans = min((int)mp.size(), ans);
             }
-            answer+='R';
-        }
-        else{
-            answer += 'R'; 
-            for(int i = 1; i < n; i++){
-                answer +='B'; 
-                calcu.pub(v[i]);
+            else if(count > d){
+                mp[v[left]]--;
+                if(mp[v[left]] == 0){
+                    mp.erase(v[left]);
+                }
+                ans = min((int)mp.size(), ans);
+                left++;
+                count--;
             }
-        }
+            right++;
+        }           
 
-        sorta(calcu); 
-
-        int diff1 = 0;
-      
-        if(calcu[calcu.size()-1] - calcu[0] != diff1){
-            yes;
-            cout << answer << endl;
-        }
-        else{
-            no;
-        }
+        cout << ans << endl;   
     }
     return 0; 
 }

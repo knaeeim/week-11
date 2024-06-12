@@ -33,39 +33,20 @@ int main()
     int t; cin>>t; 
 
     while(t--){
-        int n; 
-        cin>>n; 
+        string s;
+        cin>>s; 
 
-        vi v(n);
-
-        for(int i = 0; i < n; i++) cin>>v[i]; 
-
-        string answer = ""; 
-
-        vi calcu; 
-
-        if(v[0] != v[1]){
-            for(int i = 0; i < n - 1; i++){
-                answer +='B'; 
-                calcu.pub(v[i]);
+        if(s[0] == '1' and (s[s.size() - 1] >= '0' and s[s.size() - 1] <= '8') ){
+            bool found = true;
+            for(int i = 1; i < s.size() - 1; i++){
+                if(s[i] == '0'){
+                    found = false;
+                    break;
+                }
             }
-            answer+='R';
-        }
-        else{
-            answer += 'R'; 
-            for(int i = 1; i < n; i++){
-                answer +='B'; 
-                calcu.pub(v[i]);
-            }
-        }
 
-        sorta(calcu); 
-
-        int diff1 = 0;
-      
-        if(calcu[calcu.size()-1] - calcu[0] != diff1){
-            yes;
-            cout << answer << endl;
+            if(found) yes;
+            else no;
         }
         else{
             no;
